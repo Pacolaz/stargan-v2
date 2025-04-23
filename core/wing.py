@@ -422,7 +422,11 @@ def align_faces(args, input_dir, output_dir):
     os.makedirs(output_dir, exist_ok=True)
     fnames.sort()
     for fname in fnames:
+        if not fname.lower().endswith(('.png', '.jpg', '.jpeg')):
+            continue  # Ignora archivos que no sean imágenes
+
         image = Image.open(os.path.join(input_dir, fname)).convert('RGB')
+
         x = transform(image).unsqueeze(0)
         x_aligned = aligner.align(x)
         save_image(x_aligned, 1, filename=os.path.join(output_dir, fname))

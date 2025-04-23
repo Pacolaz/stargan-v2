@@ -47,4 +47,4 @@ class CheckpointIO(object):
             if self.data_parallel:
                 module.module.load_state_dict(module_dict[name])
             else:
-                module.load_state_dict(module_dict[name])
+                module.module.load_state_dict(module_dict[name], strict=False)
